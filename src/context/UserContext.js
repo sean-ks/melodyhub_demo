@@ -1,8 +1,7 @@
-// src/context/UserContext.js
 'use client';
 
 import React, { createContext, useState, useEffect } from 'react';
-import supabase from '../lib/supabase';
+import supabase from '../lib/supabase';  
 
 export const UserContext = createContext(null);
 

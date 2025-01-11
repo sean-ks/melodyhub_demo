@@ -1,4 +1,3 @@
-// src/components/LandingPage.js
 'use client';
 
 import React from 'react';

@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import prisma from './prisma';
 
 export async function getUser() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   const {
@@ -18,11 +18,10 @@ export async function getUser() {
   }
 
   if (user) {
-    // Attempt to find a matching Prisma user by the same ID
+    // find a user with matching ID in custom Users table
     const userData = await prisma.user.findUnique({
       where: { id: user.id },
     });
-
     if (userData) {
       return { ...user, ...userData };
     }

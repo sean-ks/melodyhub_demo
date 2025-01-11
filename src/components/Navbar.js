@@ -1,9 +1,9 @@
-// src/components/Navbar.js
 'use client';
 
 import React from 'react';
 import Link from 'next/link';
 import styles from './navbar.module.css';
+import supabase from '../lib/supabase';
 
 export default function Navbar({ user }) {
   return (
@@ -12,17 +12,19 @@ export default function Navbar({ user }) {
       <div className={styles.navLinks}>
         {user ? (
           <>
-            <Link href="/(authenticated)/myProfile">My Profile</Link>
-            <Link href="/(authenticated)/myStats">My Stats</Link>
-            <Link href="/(authenticated)/friends">Friends</Link>
-            <Link href="/(authenticated)/groups">Groups</Link>
+            <Link href="/myProfile">My Profile</Link>
+            <Link href="/myStats">My Stats</Link>
+            <Link href="/friends">Friends</Link>
+            <Link href="/groups">Groups</Link>
             <button
               className={styles.logoutButton}
               onClick={async () => {
-                // sign out
-                const { error } = await fetch('/api/logout'); 
-                // or directly with supabase:
-                // await supabase.auth.signOut();
+                // TODO: create an /api/logout route
+                // for now, client-based signOut:
+                const { error } = await supabase.auth.signOut();
+                if (error) {
+                  console.error('Logout error:', error);
+                }
                 window.location.href = '/';
               }}
             >

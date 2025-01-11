@@ -9,6 +9,5 @@ export const metadata = {
 
 export default async function HomePage() {
   const user = await getUser();
-
   return <LandingPage user={user} />;
 }

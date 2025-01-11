@@ -1,8 +1,7 @@
-// src/app/register/RegisterPageClient.js
 'use client';
 
 import React from 'react';
-import supabase from '../../lib/supabase';
+import supabase from '../../lib/supabase'; // (using @supabase/auth-helpers-nextjs client)
 import Navbar from '../../components/Navbar';
 import styles from './register.module.css';
 
@@ -12,12 +11,14 @@ export default function RegisterPageClient() {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'spotify',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${window.location.origin}/auth/callback?authType=signup`,
         },
       });
       if (error) {
         console.error('Spotify OAuth error:', error);
         alert('Signup failed: ' + error.message);
+      } else if (data?.url) {
+        window.location.href = data.url;
       }
     } catch (err) {
       console.error('Signup error:', err);

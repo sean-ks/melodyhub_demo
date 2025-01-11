@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  // This fetches the user on the server side
+  // fetches the user on server side
   const initialUser = await getUser();
 
   return (
